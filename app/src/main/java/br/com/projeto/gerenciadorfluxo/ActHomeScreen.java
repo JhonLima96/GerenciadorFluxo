@@ -1,5 +1,6 @@
 package br.com.projeto.gerenciadorfluxo;
 
+import android.app.Application;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -17,9 +18,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.firebase.client.Firebase;
+
 public class ActHomeScreen extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,FragmentLeitura.OnFragmentInteractionListener
-            {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        FragmentLeitura.OnFragmentInteractionListener, FragmentHistorico.OnFragmentInteractionListener
+        {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +31,7 @@ public class ActHomeScreen extends AppCompatActivity
         setContentView(R.layout.act_home_screen);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -85,23 +90,30 @@ public class ActHomeScreen extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_scanner_ra) {
 
             FragmentLeitura fragmentLeitura = new FragmentLeitura();
             FragmentManager manager = getSupportFragmentManager();
             manager.beginTransaction().
                     replace(R.id.relative_layout_for_fragment, fragmentLeitura
                     ).commit();
-        } else if (id == R.id.nav_gallery) {
-            Toast.makeText(this, "Botão Gallery Pressionado", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.nav_slideshow) {
-            Toast.makeText(this, "Botão Slideshow Pressionado", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.nav_autorizar_entrada) {
+            Toast.makeText(this, "Botão Autorizar Entrada Pressionado", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.nav_historico_aluno) {
+            Toast.makeText(this, "Botão Histórico Pressionado", Toast.LENGTH_SHORT).show();
+            FragmentHistorico fragmentHistorico = new FragmentHistorico();
+            FragmentManager manager = getSupportFragmentManager();
+            manager.beginTransaction().
+                    replace(R.id.relative_layout_for_fragment, fragmentHistorico
+                    ).commit();
         } else if (id == R.id.nav_manage) {
             Toast.makeText(this, "Botão Tools Pressionado", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.nav_share) {
-            Toast.makeText(this, "Botão Share Pressionado", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.nav_send) {
-            Toast.makeText(this, "Botão Send Pressionado", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.nav_configuracoes) {
+            Toast.makeText(this, "Botão Configurações Pressionado", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.nav_sobre) {
+            Toast.makeText(this, "Botão Sobre Pressionado", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.nav_sair) {
+            Toast.makeText(this, "Botão Sair Pressionado", Toast.LENGTH_SHORT).show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -110,7 +122,7 @@ public class ActHomeScreen extends AppCompatActivity
     }
 
                 @Override
-                public void onFragmentInteraction(Uri uri) {
 
+                public void onFragmentInteraction(Uri uri) {
                 }
-            }
+}

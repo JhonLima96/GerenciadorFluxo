@@ -16,8 +16,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.client.Firebase;
 import com.google.zxing.Result;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Random;
+
+import br.com.projeto.gerenciadorfluxo.model.RegistroLeitura;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 
@@ -33,6 +41,7 @@ public class FragmentLeitura extends Fragment implements View.OnClickListener, Z
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
+    private static final String FIREBASE_URL = "https://gerenciadorfluxo.firebaseio.com/";
     private String mParam1;
 
     private OnFragmentInteractionListener mListener;
@@ -40,20 +49,14 @@ public class FragmentLeitura extends Fragment implements View.OnClickListener, Z
 
     private TextView txtScan;
     private EditText edtValorQR;
-    private Button btnScanQR;
+    private Button btnScanQR, btnAdicionar;
+
+    private Firebase firebase;
 
     public FragmentLeitura() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @return A new instance of fragment FragmentLeitura.
-     */
-    // TODO: Rename and change types and number of parameters
     public static FragmentLeitura newInstance(String param1) {
         FragmentLeitura fragment = new FragmentLeitura();
         Bundle args = new Bundle();
@@ -77,17 +80,22 @@ public class FragmentLeitura extends Fragment implements View.OnClickListener, Z
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_leitura, container, false);
+
+        //Configuraçao Firebase
+        Firebase.setAndroidContext(getActivity().getApplicationContext());
+        firebase = new Firebase(FIREBASE_URL);
+
         // Inflate the layout for this fragment
         mScannerView = new ZXingScannerView(getActivity());
         txtScan = (TextView) view.findViewById(R.id.txtScan);
         edtValorQR = (EditText) view.findViewById(R.id.edtValorQR);
         btnScanQR = (Button) view.findViewById(R.id.btnScanQR);
         btnScanQR.setOnClickListener(this);
+        btnAdicionar = (Button) view.findViewById(R.id.btnAdicionar);
+        btnAdicionar.setOnClickListener(this);
 
-
-            edtValorQR.setText(mParam1);
-
-
+        //Adicionar valor lido ao edtText
+        edtValorQR.setText(mParam1);
 
         return view;
      }
@@ -118,10 +126,12 @@ public class FragmentLeitura extends Fragment implements View.OnClickListener, Z
 
     @Override
     public void onClick(View view) {
-        SimpleScannerFragment simpleScannerFragment = new SimpleScannerFragment();
-        FragmentManager manager = getFragmentManager();
-        manager.beginTransaction().replace(R.id.relative_layout_for_fragment, simpleScannerFragment
-        ).commit();
+
+        if(view == btnScanQR){
+            abrirScanner();
+        }else if(view == btnAdicionar){
+            inserirLeitura();
+        }
     }
 
     @Override
@@ -143,7 +153,6 @@ public class FragmentLeitura extends Fragment implements View.OnClickListener, Z
         mScannerView.stopCamera();
     }
 
-
     @Override
     public void onResume() {
         super.onResume();
@@ -151,10 +160,37 @@ public class FragmentLeitura extends Fragment implements View.OnClickListener, Z
         mScannerView.startCamera();
     }
 
-
-
-    public interface OnFragmentInteractionListener {
+   public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    public void abrirScanner(){
+        SimpleScannerFragment simpleScannerFragment = new SimpleScannerFragment();
+        FragmentManager manager = getFragmentManager();
+        manager.beginTransaction().replace(R.id.relative_layout_for_fragment, simpleScannerFragment
+        ).commit();
+    }
+
+    public void inserirLeitura(){
+        DateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
+        DateFormat formatoHora = new SimpleDateFormat("HH:mm:ss");
+
+        Random random= new Random();
+        int id = random.nextInt(10);
+        Date date = new Date();
+        String valorQR = edtValorQR.getText().toString();
+
+        String dataConvertida = formatoData.format(date);
+        String horaConvertida = formatoHora.format(date);
+
+        if(!valorQR.equals("")){
+            RegistroLeitura registroLeitura = new RegistroLeitura(id, valorQR, dataConvertida, horaConvertida);
+            firebase.push().setValue(registroLeitura);
+            //txtScan.setText("");
+        }else{
+            Toast.makeText(getActivity(), "Não é permitido inserir valor nulo!", Toast.LENGTH_SHORT).show();
+        }
+
     }
 }

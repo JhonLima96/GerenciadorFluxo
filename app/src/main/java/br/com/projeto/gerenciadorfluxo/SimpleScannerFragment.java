@@ -68,4 +68,6 @@ public class SimpleScannerFragment extends Fragment implements ZXingScannerView.
         super.onPause();
         mScannerView.stopCamera();
     }
+
+
 }

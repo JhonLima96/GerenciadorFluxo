@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "250718335014",
+    "firebase_url": "https://gerenciadorfluxo.firebaseio.com",
+    "project_id": "gerenciadorfluxo",
+    "storage_bucket": "gerenciadorfluxo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:250718335014:android:58da29095dbca9e7",
+        "android_client_info": {
+          "package_name": "br.com.projeto.gerenciadorfluxo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "250718335014-8irnqka39kt61hj62jjjirtbmur4nocj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7zlr0KjY6Rp1vpRip_zXbNkfZ3Yjz51c"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

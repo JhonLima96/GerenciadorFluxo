@@ -11,4 +11,6 @@
     <string name="lbl_scan">Scan</string>
     <string name="lbl_scan_qr">Leitor de QR Code</string>
     <string name="lbl_scan_codigo_barras">Leitor de Código de Barras</string>
+    <string name="lbl_adicionar">Adicionar</string>
+    <string name="lbl_pesquisar">Pesquisar</string>
 </resources>
