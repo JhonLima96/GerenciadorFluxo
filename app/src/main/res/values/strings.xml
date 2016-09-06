@@ -13,4 +13,12 @@
     <string name="lbl_scan_codigo_barras">Leitor de Código de Barras</string>
     <string name="lbl_adicionar">Adicionar</string>
     <string name="lbl_pesquisar">Pesquisar</string>
+    <string name="lbl_cancelar">Cancelar</string>
+    <string name="lbl_ok">OK</string>
+    <string name="lbl_RA">R.A: %1$s</string>
+    <string name="lbl_Nome_Aluno">Nome Aluno: %1$s</string>
+    <string name="lbl_Data_Entrada">Data Entrada: %1$s</string>
+    <string name="lbl_Hora_Entrada">Hora Entrada: %1$s</string>
+    <string name="lbl_Tipo_Entrada">Tipo Entrada: %1$s</string>
+    <string name="lbl_Hora_Saida">Hora Saída: %1$s</string>
 </resources>

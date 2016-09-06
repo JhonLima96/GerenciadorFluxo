@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,12 +19,11 @@ import com.firebase.client.Firebase;
 import com.google.zxing.Result;
 
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
 
-import br.com.projeto.gerenciadorfluxo.model.RegistroLeitura;
+import br.com.projeto.gerenciadorfluxo.model.RegistroEntrada;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 
@@ -177,16 +175,18 @@ public class FragmentLeitura extends Fragment implements View.OnClickListener, Z
         DateFormat formatoHora = new SimpleDateFormat("HH:mm:ss");
 
         Random random= new Random();
-        int id = random.nextInt(10);
+        long ra = random.nextLong();
         Date date = new Date();
         String valorQR = edtValorQR.getText().toString();
 
         String dataConvertida = formatoData.format(date);
         String horaConvertida = formatoHora.format(date);
+        String tipoEntrada = "Dentro do Horário";
+        String horaSaida = formatoHora.format(date);
 
         if(!valorQR.equals("")){
-            RegistroLeitura registroLeitura = new RegistroLeitura(id, valorQR, dataConvertida, horaConvertida);
-            firebase.push().setValue(registroLeitura);
+            RegistroEntrada registroEntrada = new RegistroEntrada(ra, valorQR, dataConvertida, horaConvertida, tipoEntrada, horaSaida);
+            firebase.push().setValue(registroEntrada);
             //txtScan.setText("");
         }else{
             Toast.makeText(getActivity(), "Não é permitido inserir valor nulo!", Toast.LENGTH_SHORT).show();

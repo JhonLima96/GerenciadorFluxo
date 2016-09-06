@@ -1,6 +1,7 @@
 package br.com.projeto.gerenciadorfluxo;
 
 import android.app.Application;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -22,7 +23,7 @@ import com.firebase.client.Firebase;
 
 public class ActHomeScreen extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
-        FragmentLeitura.OnFragmentInteractionListener, FragmentHistorico.OnFragmentInteractionListener
+        FragmentLeitura.OnFragmentInteractionListener
         {
 
     @Override
@@ -101,11 +102,7 @@ public class ActHomeScreen extends AppCompatActivity
             Toast.makeText(this, "Botão Autorizar Entrada Pressionado", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_historico_aluno) {
             Toast.makeText(this, "Botão Histórico Pressionado", Toast.LENGTH_SHORT).show();
-            FragmentHistorico fragmentHistorico = new FragmentHistorico();
-            FragmentManager manager = getSupportFragmentManager();
-            manager.beginTransaction().
-                    replace(R.id.relative_layout_for_fragment, fragmentHistorico
-                    ).commit();
+            Intent intent = new Intent(this, ActHistorico.class); startActivity(intent);
         } else if (id == R.id.nav_manage) {
             Toast.makeText(this, "Botão Tools Pressionado", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_configuracoes) {
