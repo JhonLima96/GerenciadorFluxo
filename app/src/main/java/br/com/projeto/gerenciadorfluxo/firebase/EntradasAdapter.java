@@ -36,6 +36,7 @@ public class EntradasAdapter extends BaseAdapter {
     private ArrayList<RegistroEntrada> arrayRegistroEntradas;
     private Context context;
 
+
     public EntradasAdapter(Context context, ArrayList<RegistroEntrada> arrayRegistroEntradas) {
         this.context = context;
         this.arrayRegistroEntradas = arrayRegistroEntradas;
@@ -64,7 +65,7 @@ public class EntradasAdapter extends BaseAdapter {
         if (v == null) {
             v = inflater.inflate(R.layout.list_entrada, null);
             holder = new Holder();
-            holder.NomeAluno = (TextView) v.findViewById(R.id.txtNomeAluno);
+            holder.NomeAluno = (TextView) v.findViewById(R.id.txtNome);
             holder.RA_Aluno = (TextView) v.findViewById(R.id.txtRA);
             holder.EditPerson = (ImageView) v.findViewById(R.id.EditPerson);
             holder.DeletePerson = (ImageView) v.findViewById(R.id.DeletePerson);
@@ -73,7 +74,7 @@ public class EntradasAdapter extends BaseAdapter {
             holder = (Holder) v.getTag();
         }
 
-        try{
+//        try{
             //        Log.d("LOG_EVENTO", arrayRegistroEntradas.get(0).getNome_aluno());
             holder.NomeAluno.setText(arrayRegistroEntradas.get(position).getNome_aluno());
             holder.RA_Aluno.setText(String.valueOf(arrayRegistroEntradas.get(position).getRa()));
@@ -92,9 +93,9 @@ public class EntradasAdapter extends BaseAdapter {
                 }
             });
 
-        }catch (Exception e){
-            Toast.makeText(context, "Deu erro! arrume!", Toast.LENGTH_SHORT);
-        }
+//        }catch (Exception e){
+//            Toast.makeText(context, "Deu erro! arrume!", Toast.LENGTH_SHORT);
+//        }
         return v;
     }
 
